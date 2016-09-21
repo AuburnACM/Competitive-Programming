@@ -43,3 +43,8 @@ Problem Description:
 where <problem url> is the address the problem was found at, <problem tags> are
 simple phrases describing the kind of problem, and <problem description> is a
 concise description of the problem and solution.
+
+The Makefile and run.sh files should build and run for a single chosen language
+in the solution folder. Multiple source files in different languages can be in a
+solutions folder. The only difference is that passing the name of the language
+to the Makefile or run.sh files should run the solution for that language.
