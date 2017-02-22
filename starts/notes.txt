@@ -1,0 +1,4 @@
+BFS next week
+Simpler problem
+Less object oriented boilerplate
+Liked the style of working through things
