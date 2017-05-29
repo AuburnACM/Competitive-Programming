@@ -1,0 +1,73 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{nameref}
+\lstset{breaklines}
+
+\begin{document}
+\title{Mid-Central US 2015 ICPC Problem Discussion}
+\author{Mitch Price\\ Auburn University Programming Team}
+\maketitle
+\pagebreak
+\tableofcontents{}
+\pagebreak
+\input{ACMContestScoring.tex}
+\input{DanceRecital.tex}
+\input{HiddenPassword.tex}
+\input{KitchenMeasurements.tex}
+\input{LineThemUp.tex}
+\input{Mosaic.tex}
+\input{PyroTubes.tex}
+\input{SquareDeal.tex}
+\input{TheAgglomerator.tex}
+\input{WordCloudsRevisited.tex}
+\section{Tags Used}
+The following tags appeared throughout the contest:
+\begin{itemize}
+  \item \textbf{Algebra}: \nameref{theagglomerator}
+  \item \textbf{Bit Manipulation}: \nameref{mosaic}, \nameref{pyrotubes}
+  \item \textbf{Brute Force}: \nameref{dancerecital}, \nameref{squaredeal}
+  \item \textbf{Dynamic Programming}: \nameref{wordcloudsrevisited}
+  \item \textbf{Geometry}: \nameref{squaredeal}, \nameref{theagglomerator}
+  \item \textbf{Implementation}: \nameref{acmcontestscoring}, \nameref{pyrotubes},
+  \item \textbf{Permutations}: \nameref{dancerecital}
+  \item \textbf{Search}: \nameref{kitchenmeasurements}, \nameref{mosaic}
+  \item \textbf{Strings}: \nameref{hiddenpassword}, \nameref{linethemup}
+  \item \textbf{UCS}: \nameref{kitchenmeasurements}
+\end{itemize}
+\pagebreak
+\section{Library Functions Used}
+\subsection{Uniform Cost Search (UCS)}
+\lstinputlisting[
+  lastline=42,
+  language=Java
+]{Solutions/UCS.java}
+\pagebreak
+\lstinputlisting[
+  firstline=44,
+  lastline=81,
+  language=Java
+]{Solutions/UCS.java}
+\pagebreak
+\lstinputlisting[
+  firstline=83,
+  language=Java
+]{Solutions/UCS.java}
+\pagebreak
+\subsection{Permutations}
+\lstinputlisting[
+  lastline=31,
+  language=Java
+]{Solutions/Permutations.java}
+\pagebreak
+\lstinputlisting[
+  firstline=33,
+  language=Java
+]{Solutions/Permutations.java}
+\end{document}

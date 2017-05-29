@@ -1,0 +1,35 @@
+\section{ACM Contest Scoring}
+\label{acmcontestscoring}
+\subsection{Problem Description}
+
+\href{https://open.kattis.com/problems/acm}{View on Kattis}\\
+\textbf{Tags:} Implementation\\
+
+In ACM Contest scoring, you are provided with the submission logs for a programming team during an ACM ICPC competition. These logs will consist of a variety of entries of the form: \verb|<submission time> <problem> <status>|, where \verb|<submission>| is the number of minutes into the competition at which the submission was made, \verb|<problem>| is an uppercase letter (A-Z) denoting what problem the submission is for, and \verb|<status>| will be either \verb|right| or \verb|wrong|, indicating whether or not the team got the problem correct.	The submission logs will be sorted by non-decreasing submission time, and will be terminated with a single line containing only the value \verb|-1|.\\
+
+Your program must take these logs and output two numbers: the number of problems successfully solved throughout the contest, and the total penalty time assessed. As a reminder, penalty time is assessed as follows:
+\begin{itemize}
+	\item No penalty time is assessed for a problem that is not solved during the contest.
+	\item For each incorrect submission on a problem that is eventually solved that occurs prior to the given team's first correct submission for that problem, a penalty of 20 minutes is assessed.
+	\item When the team correctly solves a problem for the first time, a penalty equal to the submission time of the submission time for the solution is assessed.
+	\item The team's total penalty time will be the sum of the penalty times for every problem in the set.
+\end{itemize}
+
+\subsection{Algorithm}
+
+This is a fairly straightforward implementation. We simply need to assess the rules as written, which can be done with the following approach:\\
+
+Keep a running total of problems solved and penalty time, initialized to 0. Then, for each submission (in order of increasing submission time):
+\begin{itemize}
+	\item If the problem has already been solved, do nothing.
+	\item Otherwise, if the submission is incorrect, increment the number of incorrect solutions to this problem.
+	\item If this problem has not already been solved, but the submission is correct, mark this problem as solved, increment the total number of problems solved, and add the number of incorrect submissions for this problem times 20, plus the submission time to the total penalty time.
+\end{itemize}
+After doing this for every problem, we just need to output the totals.\\
+\hfill\break
+\textbf{Time Complexity:} $\mathcal{O}(N)$\\
+\textbf{Space Complexity:} $\mathcal{O}(P)$\\
+Where \textbf{N} is the number of entries and \textbf{P} is the number of different problems.
+\subsection{Implementation}
+\lstinputlisting[language=Java]{Solutions/ACM.java}
+\pagebreak

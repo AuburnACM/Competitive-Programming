@@ -1,0 +1,51 @@
+\section{Dance Recital}
+\label{dancerecital}
+\href{https://open.kattis.com/problems/dancerecital}{View on Kattis}\\
+\textbf{Tags:} Brute Force, Permutations\\
+\subsection{Problem Description}
+
+We are given a list of dance routines, each of which describe a cast of dancers
+that will be needed to perform each routine. We want to minimize the number of
+times a dancer will perform in back to back routines (called a "quick change").
+For example, in the ordering:
+\begin{verbatim}
+ABC
+ABEF
+DEF
+ABCDE
+FGH
+\end{verbatim}
+There are 6 quick changes (A and B between the 1st and 2nd dances, E and F
+between the 2nd and 3rd, and D and E between the 3rd and 4th dances). \\
+\hfill\break
+However, if we use the ordering:
+\begin{verbatim}
+ABEF
+DEF
+ABC
+FGH
+ABCDE
+\end{verbatim}
+There are only 2 quick changes (E and F between the 1st and 2nd dances). Given
+a list of \textbf{N} routines ($2 \leq N \leq 10$), consisting of dancers
+described using only uppercase A-Z letters, determine the minimum number of
+quick changes.
+\subsection{Algorithm}
+
+Since $10! = 3628800$ is rather tractable, we can brute-force this. However,
+in order to make the computation performed at each step as fast as possible,
+we will pre-compute the number of quick changes between every pair of dances
+and store this ahead of time. Then, each step of the brute force calculation
+just requrires us to iterate over the permuted values in order.\\
+\hfill\break
+Because brute-forcing all permutations of the given values is not the key
+part of this excercise, we will rely on our brute-force library to do the
+heavy lifting. \\
+\hfill\break
+\textbf{Time Complexity:} $\mathcal{O}(N! + N \cdot P^2)$\\
+\textbf{Space Complexity:} $\mathcal{O}(N(N+P))$\\
+Where \textbf{N} is the number of routines ($2 \leq N \leq 10$), and \textbf{P}
+ is the number of different dancers ($1 \leq P \leq 26$).
+\subsection{Implementation}
+\lstinputlisting[language=Java]{Solutions/DanceRecital.java}
+\pagebreak

@@ -1,0 +1,113 @@
+\section{The Agglomerator}
+\label{theagglomerator}
+\href{https://open.kattis.com/problems/agglomerator}{View on Kattis}\\
+\textbf{Tags:} Algebra, Geometry\\
+\subsection{Problem Description}
+We are given the initial positions, initial velocities, and sizes of a
+collection of circular droplets in a 2-D grid. When two droplets touch one
+another, they will merge into a single droplet. This new droplet's location and
+velocity will be the area-weighted average of the 2 initial droplet's locations
+and velocities. We need to simulate the movement of the droplets until no more
+merges will occur. Luckily, the droplets have the following constraints:
+
+\begin{itemize}
+  \item The original droplets do not touch each other.
+  \item When a new droplet is formed from a merge, the new droplet will be a
+  distance of at least $0.001$ from all other droplets.
+  \item Changing the radius of any drop by $\pm 0.001$ will not affect whether
+  it collides with any other drop.
+  \item All collisions will be at least $0.001$ seconds apart.
+  \item No droplets will merge after $t = 10^{9}$ seconds.
+\end{itemize}
+
+Given these constraints, determine how many droplets will be left at the end,
+and the time of the last merge.\\
+
+\subsection{Algorithm}
+
+To find when (and if) two drops $a$ and $b$ will collide, we can use some basic
+algebra. We need to solve for the first time $t$ where the drop's distance is
+equal to the sum of their radii:
+
+\begin{equation}
+\Bigg | \bigg ( \begin{pmatrix}x_{a} \\ y_{a}\end{pmatrix} + t \cdot
+  \begin{pmatrix}v_{ax} \\ v_{ay}\end{pmatrix} \bigg ) - \bigg (
+  \begin{pmatrix}x_{a} \\ y_{a}\end{pmatrix} + t \cdot
+  \begin{pmatrix}v_{ax} \\ v_{ay}\end{pmatrix} \bigg ) \Bigg |
+  =  r_{a} + r_{b}
+\end{equation}
+
+To simplify calculatations, let us say
+$\begin{pmatrix}x_{a} \\ y_{a}\end{pmatrix} +
+\begin{pmatrix}x_{b} \\ y_{b}\end{pmatrix} =
+\begin{pmatrix}d_{x} \\ d_{y} \end{pmatrix}$,
+$\begin{pmatrix}v_{ax} \\ v_{ay}\end{pmatrix} +
+\begin{pmatrix}v_{bx} \\ v_{by}\end{pmatrix} =
+\begin{pmatrix}d_{vx} \\ d_{vy}\end{pmatrix}$, and
+$r_{a} + r_{b} = s_{r}$.\\
+
+Then, we can reduce the given equality to a quadratic equation:
+
+\begin{equation}
+  \big ( d_{vx}^{2} + d_{vy}^{2} \big ) \cdot t^{2} +
+  \big ( 2 d_{x} d_{vx} + 2 d_{y} d_{vy} \big ) \cdot t +
+  \big ( d_{x}^{2} + d_{y}^{2} - s_{r}^{2} \big ) = 0
+\end{equation}
+
+and solve using the quadratic formula
+${\big ( -b \pm \sqrt{b^{2} - 4ac} \big ) } / {2a}$, where
+$a$ is the coefficient of $t^2$, $b$ is the coefficient of $t$, and $c$ is the
+constant term.\\
+
+Because of the constraint that there will be no droplets intersecting at the
+start or immediately following a merge, we know that if we look for collisions
+at those times, the two solutions for this equation will always have the same
+sign. Thus, we can always use the lower solution, which (because $a$ must be
+positive) is guaranteed to be the solution in which the root of the determinant
+is subtracted. If the determinant or the solution is negative, then the pair
+of droplets will not intersect in the future. Otherwise, they will intersect
+after the given amount of time.\\
+
+Now that we have a means for finding the time of intersection, we can simulate
+the droplets. This can be done as follows:
+\hfill\break
+\begin{algorithmic}
+  \State Let $D$ be a set containing all droplets.
+  \State $time \gets 0$
+  \While{Another intersection will occur}
+    \State Let $a$, $b$ be the droplets that will intersect next, after time $t$.
+    \For{$d$ in $D$}
+      \State $d \gets advance(d, t)$
+    \EndFor
+    \State $time \gets time + t$
+    \State $D \gets D - a$
+    \State $D \gets D - b$
+    \State $D \gets D + merge(a, b)$
+  \EndWhile
+  \State Return $|D|$, $time$
+\end{algorithmic}
+\hfill\break
+Advancing and merging drops simply involves updating the positions of the
+droplets as specified in the problem statement.\\
+\hfill\break
+\textbf{Time Complexity:} $\mathcal{O}(N^{3})$\\
+\textbf{Space Complexity:} $\mathcal{O}(N)$\\
+Where $N$ is the number of droplets $(2 \leq N \leq 100)$.
+\pagebreak
+\subsection{Implementation}
+\lstinputlisting[
+  lastline=45,
+  language=Java
+  ]{Solutions/Agglomerator.java}
+\pagebreak
+\lstinputlisting[
+  firstline=47,
+  lastline=95,
+  language=Java
+  ]{Solutions/Agglomerator.java}
+\pagebreak
+\lstinputlisting[
+  firstline=97,
+  language=Java
+  ]{Solutions/Agglomerator.java}
+\pagebreak

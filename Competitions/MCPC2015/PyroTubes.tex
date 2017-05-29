@@ -1,0 +1,31 @@
+\section{Pyro Tubes}
+\label{pyrotubes}
+\href{https://open.kattis.com/problems/pyro}{View on Kattis}\\
+\textbf{Tags:} Bit Manipulation, Implementation\\
+\subsection{Problem Description}
+We are given a list of values of brightness to be achieved by illuminating a
+selection of tubes. The first tube has a brightness of 1, and each subsequent
+tube has double the brightness of the previous tube. For each value, we need to
+calculate the number of alternative brightness values. For an alternative value
+to be valid, it must satisfy the following:
+\begin{itemize}
+  \item The alternate value must be greater than the original.
+  \item The alternate must be another value in the given list.
+  \item The alternate must be achieved by changing no more than 2 tubes from the
+  original
+\end{itemize}
+\subsection{Algorithm}
+The key to this is to realize that the tubes simply correspond to bits in the
+binary representation of each value. To solve this, we can iterate over all
+combinations of 1 or 2 bits in the given range ($2^{0}$ to $2^{17}$, per the
+problem statement). We can simply xor the original value with these bits to change
+them. If the result is greater than the original, and is in a set containing
+all values in the list, we can increment the counter for this value.\\
+\hfill\break
+\textbf{Time Complexity:} $\mathcal{O}(N \cdot \log^{2}L)$\\
+\textbf{Space Complexity:} $\mathcal{O}(N)$\\
+Where $N$ is the number of tubes, and $L$ is the largest possible brightness value.
+\pagebreak
+\subsection{Implementation}
+\lstinputlisting[language=Java]{Solutions/PyroTubes.java}
+\pagebreak

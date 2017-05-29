@@ -1,0 +1,29 @@
+\section{Line Them Up}
+\label{linethemup}
+\href{https://open.kattis.com/problems/lineup}{View on Kattis}\\
+\textbf{Tags:} Strings\\
+\subsection{Problem Description}
+
+Given a list of unique, uppercase names, determine if the list is completely
+in increasing alphabetical order, completely decreasing alphabetically, or
+neither.
+\subsection{Algorithm}
+
+We can rely on Java's built-in String.compareTo function to solve this. First,
+we will get the result of compareTo between the 2nd and first list elements.
+
+Then, for every other adjacent pair of strings, we can verify that the result
+of compareTo is on the same side of 0 as the initial comparison (i.e. they must
+be either both positive or both negative). If it isn't, the answer is neither.
+If however, the second value is larger than the first for all pairs, we are
+ascending. Finally, if the second value is smaller than the first for all pairs,
+we are descending.
+
+\hfill\break
+\textbf{Time Complexity:} $\mathcal{O}(L \cdot N)$\\
+\textbf{Space Complexity:} $\mathcal{O}(L \cdot N)$\\
+Where \textit{L} is the length of the longest string.
+\pagebreak
+\subsection{Implementation}
+\lstinputlisting[language=Java]{Solutions/LineThemUp.java}
+\pagebreak

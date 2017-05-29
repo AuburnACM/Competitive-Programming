@@ -1,0 +1,70 @@
+\section{Kitchen Measurements}
+\label{kitchenmeasurements}
+\href{https://open.kattis.com/problems/kitchen}{View on Kattis}\\
+\textbf{Tags:} Search, UCS\\
+\subsection{Problem Description}
+
+We are given a set of \textit{N} cups $(2 \leq N \leq 5)$ of decreasing
+capacities $c_{1}, c_{2}, ..., c_{N}$. The first (and largest) cup is initially
+full of water, and all other cups are empty. We are also given a target volume
+\textit{V}. Our goal is to end up with exactly \textit{V} units of water in the
+first cup, only by pouring water from one cup to another until either the source
+cup is empty or the destination cup is full.\\
+\hfill\break
+If this is impossible, need to say so. Otherwise, we should determine the
+minimum amount of liquid that must be poured to achieve the goal.
+\subsection{Algorithm}
+
+The solution to this can be derived by performing a Uniform Cost Search, or
+Dijkstra's Algorithm. The focus of this exercise will be on determining what
+the state space will be, the successor function, and how we will determine
+whether or not we are at a goal state. Because performing the search is not the
+focus of this, we will be using the search library to perform the acutal search.\\
+
+\textbf{State Space}\\
+We will define a state as $\{w_{1}, w_{2}, ... w_{N}\}$, the amount of water in each
+cup in the given state. Two states $s_{1} = \{u_{1}, ... u_{N}\}$ and
+$s_{2} = \{v_{1}, ... v_{N}\}$ are identical if and only if
+$\forall\, i,\, 1 \leq i \leq N,\, v_{i} = u_{i}$.\\
+
+\textbf{Goal State}\\
+A given state $s = \{w_{1}, w_{2}, ... w_{N}\}$ is a goal state if and only if
+$w_{1} = V$.\\
+
+\textbf{Neighbor Function}\\
+We can use the following algorithm to find all neighbors:
+\begin{algorithmic}
+  \State Let $distance$ be a map of neighbors to distance.
+  \For{$src \gets 1$ to $N$}
+    \For{$dst \gets 1$ to $N$}
+      \If {$src \neq dst$}
+        \State $pour \gets \min(w_{src}, c_{dst} - w_{dst})$
+        \If {$pour > 0$}
+          \State $\{w'_{1}, ... w'_{N}\} \gets \{w_{1}, ... w_{N}\}$
+          \State $w'_{src} \gets w'_{src} - pour$
+          \State $w'_{dst} \gets w'_{dst} + pour$
+          \State $distance (\{w'_{1}, ... w'_{N}\}) \gets pour$
+        \EndIf
+      \EndIf
+    \EndFor
+  \EndFor
+\end{algorithmic}
+With all of the following defined, we can rely on the UCS class in the search
+library to find the optimal procedure, if it exists.\\
+\hfill\break
+\textbf{Time Complexity:} $\mathcal{O}(N^2 \cdot |S| \cdot \log(|S|))$\\
+\textbf{Space Complexity:} $\mathcal{O}(|S|)$\\
+Where $N$ is the number of cups, and $|S|$ is the number of different states
+we can explore. This is loosely bound by ${\displaystyle \prod_{i=1}^{N} c_{i}}$,
+but is significantly less than this value in practice.
+\subsection{Implementation}
+\lstinputlisting[
+  language=Java,
+  lastline=35
+]{Solutions/KitchenMeasurements.java}
+\pagebreak
+\lstinputlisting[
+  language=Java,
+  firstline=37
+]{Solutions/KitchenMeasurements.java}
+\pagebreak
